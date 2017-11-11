@@ -10,8 +10,10 @@
 #include "RamMemory.hpp"
 #include "UserInfo.hpp"
 #include "OSInfo.hpp"
+#include "IMonitorDisplay.hpp"
+#include "CPU.hpp"
 
-class Ncurses
+class Ncurses : public IMonitorDisplay
 {
 public:
     Ncurses();
