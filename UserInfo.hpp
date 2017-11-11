@@ -5,11 +5,15 @@
 #ifndef DAY07_USERINFO_HPP
 #define DAY07_USERINFO_HPP
 #include <iostream>
+#include <sys/utsname.h>
+
+int uname(struct utsname *);
 
 class UserInfo {
 private:
-    char *host;
-    char *user;
+    char* host;
+    char* user;
+
 
 public:
 
@@ -18,7 +22,7 @@ public:
 
     char *getHost() const;
 
-    char *getUser() const;
+    char *getUser();
 
     virtual ~UserInfo();
 
