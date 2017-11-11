@@ -14,6 +14,16 @@ char *UserInfo::getUser() const {
 }
 
 UserInfo::UserInfo() {
+    reload();
+}
+
+
+
+UserInfo::~UserInfo() {
+
+}
+
+void UserInfo::reload() {
     char hostname[100];
     char username[100];
     int l, i;
@@ -21,8 +31,5 @@ UserInfo::UserInfo() {
     i = getlogin_r(username, 100);
     user = &username[l];
     host = &hostname[i];
-}
-
-UserInfo::~UserInfo() {
 
 }

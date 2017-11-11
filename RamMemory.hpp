@@ -11,9 +11,10 @@ private:
     long freeMemory;
     long usedMemory;
 public:
-    virtual ~RamMemory();
-
+    ~RamMemory();
     RamMemory();
+
+    void reload();
 
     long getFreeMemory() const;
 

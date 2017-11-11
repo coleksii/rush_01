@@ -14,6 +14,7 @@ private:
 public:
 
     UserInfo();
+    void reload();
 
     char *getHost() const;
 
