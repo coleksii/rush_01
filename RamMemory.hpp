@@ -6,6 +6,7 @@
 #define DAY07_RAMMEMORY_HPP
 
 
+
 class RamMemory {
 private:
     long freeMemory;
@@ -15,9 +16,7 @@ public:
     RamMemory();
 
     void reload();
-
     long getFreeMemory() const;
-
     long getUsedMemore() const;
 
 };

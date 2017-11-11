@@ -8,6 +8,8 @@
 #include<curses.h>
 #include <signal.h>
 #include "RamMemory.hpp"
+#include "UserInfo.hpp"
+#include "OSInfo.hpp"
 
 class Ncurses
 {
