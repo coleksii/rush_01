@@ -49,32 +49,23 @@ void CPU::cpu_load()
     }
 }
 
-//void CPU::cpu_info()
-//{
-//    mach_port_t self = host_self();
-//    kern_return_t rc;
-//    char buf[1024]; // suffices. Better code would sizeof(..info)
-//    host_basic_info_t hi;
-//    int len = 1024;
-//    // Getting the host info is simply a matter of calling host_info
-//    // on the host_self(). We do not need the privileged host port for
-//    // this..
-//    rc = host_info (self, HOST_BASIC_INFO,(host_info_t) buf, &len); // mach_msg_type_number_t *host_info_outCnt
-//    hi = (host_basic_info_t) buf; // type cast, so we can print fields
-//    // and print fields..
-//    printf ("CPUs:\t\t %d/%d\n", hi->avail_cpus, hi->max_cpus);
-//    printf ("Physical CPUs:\t %d/%d\n", hi->physical_cpu, hi->physical_cpu_max);
-//    printf ("Logical CPUs:\t %d/%d\n", hi->logical_cpu, hi->logical_cpu_max);
-//    printf ("CPU type:\t %d/%d, Threadtype: %d\n", hi->cpu_type,
-//            hi->cpu_subtype, hi->cpu_threadtype);
-//    // Note memory_size is a signed 32-bit! Max value is 2GB, then it flips to negative
-//    printf ("Memory size:\t %d/%ld\n", hi->memory_size, hi->max_mem);
-//}
+void CPU::cpu_info()
+{
+    size_t		len = 1048;
+    char		str[1048];
+    int			cnt_core;
+
+    sysctlbyname("machdep.cpu.brand_string", str, &len, NULL, 0);
+    _cpu_name = str;
+    len = sizeof(int);
+    sysctlbyname("hw.ncpu", &(cnt_core), &len, NULL, 0);
+    _cores = cnt_core;
+}
 
 void CPU::reload()
 {
     cpu_load();
-
+    cpu_info();
 }
 
 float CPU::get_cpu() const
@@ -85,6 +76,16 @@ float CPU::get_cpu() const
 float CPU::get_cpu_free() const
 {
     return _cpu_free;
+}
+
+char const *CPU::get_cpu_name()
+{
+    return _cpu_name.c_str();
+}
+
+int CPU::get_cores() const
+{
+    return _cores;
 }
 
 //int main()
