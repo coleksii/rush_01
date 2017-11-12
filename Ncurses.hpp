@@ -18,10 +18,24 @@ class Ncurses : public IMonitorDisplay
 public:
     Ncurses();
     ~Ncurses();
-    void allplugins() const;
+    void allplugins();
+	int getNumb() const;
+	void setNumb(int numb);
+	void pluginUserInfo();
+	void pluginMemory();
+	void pluginCPU();
+	void initplugin();
+	void pluginOS();
 private:
-    WINDOW *_menu;
+	UserInfo user;
+	OSInfo os;
+	CPU cpu;
+	RamMemory ram;
+
+	WINDOW *_menu;
     WINDOW *_data;
+	int		numb;
+	void ((Ncurses::*f[5]))();
     void init_visualisation() const;
     void printmenu() const;
     void printmenudata() const;

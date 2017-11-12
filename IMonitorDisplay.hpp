@@ -8,7 +8,7 @@
 class IMonitorDisplay
 {
 public:
-    virtual void allplugins() const = 0;
+    virtual void allplugins() = 0;
 private:
 
 };
