@@ -6,25 +6,24 @@
 #define DAY07_USERINFO_HPP
 #include <iostream>
 #include <sys/utsname.h>
+#include "IMonitorModule.hpp"
 
 int uname(struct utsname *);
 
-class UserInfo {
+class UserInfo : public IMonitorModule
+{
+public:
+    UserInfo();
+    ~UserInfo();
+    void reload();
+    char const *getHost();
+    char const *getUser();
+
 private:
     std::string host;
     std::string user;
-
-
-public:
-
-    UserInfo();
-    void reload();
-
-    char const *getHost();
-
-    char const *getUser();
-
-    virtual ~UserInfo();
+    UserInfo &operator=(UserInfo &rhs);
+    UserInfo(UserInfo &src);
 
 };
 

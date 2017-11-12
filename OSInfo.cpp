@@ -29,3 +29,16 @@ char const *OSInfo::get_buff()
 {
     return _buff.c_str();
 }
+
+OSInfo& OSInfo::operator=(OSInfo &rhs)
+{
+    this->_buff = rhs.get_buff();
+    return *this;
+}
+
+OSInfo::OSInfo(OSInfo &src)
+{
+    *this = src;
+}
+
+

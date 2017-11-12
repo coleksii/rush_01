@@ -11,15 +11,10 @@
 #include <mach/mach_host.h>
 #include <iostream>
 #include <cstdlib>
+#include "IMonitorModule.hpp"
 
-class RamMemory {
-private:
-    long virt_freeMemory;
-    long virt_Memory;
-    unsigned long long _physical_memory;
-    long used_memory;
-    long unused_memory;
-    long wired_memory;
+class RamMemory : public IMonitorModule
+{
 
 public:
     ~RamMemory();
@@ -33,6 +28,16 @@ public:
     void PhysicalMemory();
     void loadvirtual_mem();
     unsigned long long int getPhysical_memory();
+
+private:
+    long virt_freeMemory;
+    long virt_Memory;
+    unsigned long long _physical_memory;
+    long used_memory;
+    long unused_memory;
+    long wired_memory;
+    RamMemory &operator=(RamMemory &rhs);
+    RamMemory(RamMemory &src);
 
 };
 

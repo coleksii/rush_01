@@ -5,23 +5,26 @@
 #ifndef RUSH01_OSINFO_HPP
 #define RUSH01_OSINFO_HPP
 
+#include "IMonitorModule.hpp"
 #include <sys/utsname.h>
 #include <cstring>
 #include <fstream>
 #include <istream>
 #include <iostream>
-#include "stdio.h"
+#include <stdio.h>
 
-class OSInfo
+class OSInfo : public IMonitorModule
 {
 public:
     OSInfo();
-    virtual ~OSInfo();
+    ~OSInfo();
     void reload();
     char const *get_buff();
 
 private:
     std::string    _buff;
+    OSInfo &operator=(OSInfo &rhs);
+    OSInfo(OSInfo &src);
 };
 
 
