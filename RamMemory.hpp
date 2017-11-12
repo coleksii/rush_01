@@ -20,14 +20,15 @@ public:
     ~RamMemory();
     RamMemory();
     void reload();
-    long getPhys_Used_memory();
-    long getPhys_Unused_memory();
-    long getPhys_Wired_memory();
+    long getPhys_Used_memory() const;
+    long getPhys_Unused_memory() const;
+    long getPhys_Wired_memory() const;
     long getVirt_freeMemory() const;
     long getVirt_UsedMemory() const;
     void PhysicalMemory();
     void loadvirtual_mem();
-    unsigned long long int getPhysical_memory();
+    unsigned long long int getPhysical_memory() const;
+    RamMemory &operator=(RamMemory const &rhs);
 
 private:
     long virt_freeMemory;
@@ -36,7 +37,6 @@ private:
     long used_memory;
     long unused_memory;
     long wired_memory;
-    RamMemory &operator=(RamMemory &rhs);
     RamMemory(RamMemory &src);
 
 };

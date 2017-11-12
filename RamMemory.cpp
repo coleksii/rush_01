@@ -46,7 +46,7 @@ void RamMemory::PhysicalMemory()
     pclose(ram);
 }
 
-unsigned long long int RamMemory::getPhysical_memory()
+unsigned long long int RamMemory::getPhysical_memory() const
 {
     return _physical_memory;
 }
@@ -74,22 +74,22 @@ void RamMemory::loadvirtual_mem()
     }
 }
 
-long RamMemory::getPhys_Used_memory()
+long RamMemory::getPhys_Used_memory() const
 {
     return used_memory;
 }
 
-long RamMemory::getPhys_Unused_memory()
+long RamMemory::getPhys_Unused_memory() const
 {
     return unused_memory;
 }
 
-long RamMemory::getPhys_Wired_memory()
+long RamMemory::getPhys_Wired_memory() const
 {
     return wired_memory;
 }
 
-RamMemory& RamMemory::operator=(RamMemory &rhs)
+RamMemory& RamMemory::operator=(RamMemory const &rhs)
 {
     this->virt_freeMemory = rhs.getVirt_freeMemory();
     this->virt_Memory = rhs.getVirt_UsedMemory();

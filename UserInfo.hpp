@@ -16,13 +16,13 @@ public:
     UserInfo();
     ~UserInfo();
     void reload();
-    char const *getHost();
-    char const *getUser();
+    char const *getHost() const;
+    char const *getUser() const;
+    UserInfo &operator=(UserInfo const &rhs);
 
 private:
     std::string host;
     std::string user;
-    UserInfo &operator=(UserInfo &rhs);
     UserInfo(UserInfo &src);
 
 };

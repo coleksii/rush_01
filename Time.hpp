@@ -20,10 +20,10 @@ public:
     int getMin();
     int getSec();
     tm *getNow() const;
+    Time &operator=(Time const &rhs);
 
 private:
     struct tm * now;
-    Time &operator=(Time &rhs);
     Time(Time &src);
 };
 

@@ -22,11 +22,11 @@ public:
     void reload();
     char const  *getIn() const;
     char const  *getOut() const;
+    Network &operator=(Network const &rhs);
 
 private:
     std::string in;
     std::string out;
-    Network &operator=(Network const &rhs);
     Network(Network const &src);
 
 };

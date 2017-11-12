@@ -52,7 +52,7 @@ tm *Time::getNow() const
     return now;
 }
 
-Time& Time::operator=(Time &rhs)
+Time& Time::operator=(Time const &rhs)
 {
     this->now = rhs.getNow();
 

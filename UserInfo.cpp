@@ -5,11 +5,11 @@
 #include <zconf.h>
 #include "UserInfo.hpp"
 
-char const *UserInfo::getHost() {
+char const *UserInfo::getHost() const{
     return host.c_str();
 }
 
-char const *UserInfo::getUser() {
+char const *UserInfo::getUser() const{
     return user.c_str();
 }
 
@@ -31,7 +31,7 @@ void UserInfo::reload() {
     host = &hostname[l];
 }
 
-UserInfo& UserInfo::operator=(UserInfo &rhs)
+UserInfo& UserInfo::operator=(UserInfo const &rhs)
 {
     this->user = rhs.getUser();
     this->host = rhs.getHost();

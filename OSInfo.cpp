@@ -25,12 +25,12 @@ void OSInfo::reload()
     pclose(os);
 }
 
-char const *OSInfo::get_buff()
+char const *OSInfo::get_buff() const
 {
     return _buff.c_str();
 }
 
-OSInfo& OSInfo::operator=(OSInfo &rhs)
+OSInfo& OSInfo::operator=(OSInfo const &rhs)
 {
     this->_buff = rhs.get_buff();
     return *this;

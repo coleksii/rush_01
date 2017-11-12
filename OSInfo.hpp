@@ -19,11 +19,11 @@ public:
     OSInfo();
     ~OSInfo();
     void reload();
-    char const *get_buff();
+    char const *get_buff() const;
+    OSInfo &operator=(OSInfo const &rhs);
 
 private:
     std::string    _buff;
-    OSInfo &operator=(OSInfo &rhs);
     OSInfo(OSInfo &src);
 };
 
