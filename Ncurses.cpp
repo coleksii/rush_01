@@ -31,12 +31,6 @@ Ncurses::~Ncurses()
 	endwin();
 }
 
-void Ncurses::printmenudata() const
-{
-	wattron(_menu, COLOR_PAIR(2));
-
-}
-
 
 void Ncurses::pluginUserInfo(){
 	wattron(_data, COLOR_PAIR(3));
@@ -49,10 +43,32 @@ void Ncurses::pluginUserInfo(){
 	wattrset(_data, A_NORMAL);
 }
 
+void Ncurses::printGr(int y, double l){
+//    mvwprintw(_data, y, 45, "%f", l);
+    mvwprintw(_data, y, 40, "[");
+    for (int i = 0; i < l && i < 90; i++)
+        mvwprintw(_data, y, 42 + i, "|");
+    mvwprintw(_data, y, 90, "]");
+}
+
 void Ncurses::graphickModeMemory(){
+    double l;
+    l = static_cast<double>(ram.getVirt_freeMemory())/ram.getPhysical_memory() * 100;
+    l *= 2;
     wattron(_data, COLOR_PAIR(5));
-    mvwprintw(_data, 2, 40, "[");
-    mvwprintw(_data, 2, 90, "]");
+    printGr(2, l);
+    l = static_cast<double>(ram.getVirt_UsedMemory())/ram.getPhysical_memory() * 100;
+    l /= 2;
+    printGr(3, l);
+    l = static_cast<double>(ram.getPhys_Used_memory())/ram.getPhysical_memory() * 100;
+    l *= 20000;
+    printGr(5, l);
+    l = static_cast<double>(ram.getPhys_Unused_memory())/ram.getPhysical_memory() * 100;
+    l *= 2000000;
+    printGr(6, l);
+    l = static_cast<double>(ram.getPhys_Wired_memory())/ram.getPhysical_memory() * 100;
+    l *= 200000;
+    printGr(7, l);
     wattrset(_data, A_NORMAL);
 }
 
@@ -60,16 +76,28 @@ void Ncurses::pluginMemory(){
 	mvwprintw(_data, 2, 4, "Virt Free memory: %ld\tkb     ", ram.getVirt_freeMemory() / 1024);
 	mvwprintw(_data, 3, 4, "Virt Used memory: %ld\tkb     ", ram.getVirt_UsedMemory() / 1024);
     mvwprintw(_data, 4, 4, "Physical memory:  %llu\tkb     ", ram.getPhysical_memory() / 1024);
-    mvwprintw(_data, 5, 4, "Physical used memory:    %4ld kb     ", ram.getPhys_Used_memory());
-    mvwprintw(_data, 6, 4, "Physical unused memory:  %4ld kb     ", ram.getPhys_Unused_memory());
-    mvwprintw(_data, 7, 4, "Physical wired memory:   %4ld kb     ", ram.getPhys_Wired_memory());
+    mvwprintw(_data, 5, 4, "Physical used memory:    %4ld      ", ram.getPhys_Used_memory());
+    mvwprintw(_data, 6, 4, "Physical unused memory:  %4ld      ", ram.getPhys_Unused_memory());
+    mvwprintw(_data, 7, 4, "Physical wired memory:   %4ld      ", ram.getPhys_Wired_memory());
     graphickModeMemory();
 
 }
 
 void Ncurses::pluginCPU(){
-	mvwprintw(_data, 2, 4, "CPU used: %.0f%%   ", cpu.get_cpu() * 100);
-	mvwprintw(_data, 3, 4, "CPU free: %.0f%%   ", cpu.get_cpu_free() * 100);
+    mvwprintw(_data, 2, 4, "CPU name: %s   ", cpu.get_cpu_name());
+    mvwprintw(_data, 3, 4, "CPU cores: %d   ", cpu.get_cores());
+    mvwprintw(_data, 4, 4, "CPU used: %.0f%%   ", cpu.get_cpu() * 100);
+    mvwprintw(_data, 5, 4, "CPU free: %.0f%%   ", cpu.get_cpu_free() * 100);
+    wattron(_data, COLOR_PAIR(6));
+    double l;
+    l = static_cast<double>(cpu.get_cpu())/1 * 100;
+    l /= 2;
+    printGr(4, l);
+    l = static_cast<double>(cpu.get_cpu_free())/1 * 100;
+    l /= 2;
+    printGr(5, l);
+    wattrset(_data, A_NORMAL);
+
 }
 
 void Ncurses::pluginOS(){
@@ -107,9 +135,10 @@ void Ncurses::allplugins()
 		printmenu();
 		wrefresh(_data);
 		wrefresh(_menu);
+        refresh();
 		usleep(100000);
         if (clock() % 1000000000000000000)
-            reload();
+           reload();
 	}
 }
 

@@ -30,6 +30,8 @@ public:
     void reload();
     void printLeft();
     void initStrMenu();
+    void graphickModeMemory();
+    void printGr(int y, double l);
 private:
 	UserInfo user;
 	OSInfo os;
@@ -44,7 +46,6 @@ private:
 	void ((Ncurses::*f[5]))();
     void init_visualisation() const;
     void printmenu();
-    void printmenudata() const;
 };
 
 
