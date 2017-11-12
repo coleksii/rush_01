@@ -120,7 +120,7 @@ void Ncurses::reload(){
     cpu.reload();
     ram.reload();
     net.reload();
-//    time.reload();TODO
+    time.reload();
 }
 
 void Ncurses::allplugins()
