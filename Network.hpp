@@ -18,6 +18,12 @@ class Network
 public:
     Network();
     virtual ~Network();
+    void reload();
+    char const  *getIn() const;
+    char const  *getOut() const;
+private:
+    std::string in;
+    std::string out;
 };
 
 

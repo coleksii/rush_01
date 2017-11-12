@@ -29,8 +29,6 @@ void RamMemory::reload()
 
 void RamMemory::PhysicalMemory()
 {
-//    std::string used_memory:;
-//    std::string unused_memory;
     std::string::size_type pos;
     size_t len = sizeof(_physical_memory);
     sysctlbyname("hw.memsize", &_physical_memory, &len, NULL, 0);
@@ -45,6 +43,7 @@ void RamMemory::PhysicalMemory()
     wired_memory = atol(tmp.substr(pos + 1, 5).c_str());
     pos = tmp.find("),");
     unused_memory = atol(tmp.substr(pos + 3, 5).c_str());
+    pclose(ram);
 }
 
 unsigned long long int RamMemory::getPhysical_memory()
