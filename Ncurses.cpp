@@ -46,7 +46,8 @@ void Ncurses::allplugins() const
     {
         mvwprintw(_data, 5, 4, "Free memory: %lld kb     ", ram.getFreeMemory() / 1024);
         mvwprintw(_data, 6, 4, "Used memory: %lld kb     ", ram.getUsedMemore() / 1024);
-        mvwprintw(_data, 20, 4, "CPU Load: %.2f", cpu.get_cpu());
+        mvwprintw(_data, 20, 4, "CPU used: %.0f%%   ", cpu.get_cpu() * 100);
+        mvwprintw(_data, 21, 4, "CPU free: %.0f%%   ", cpu.get_cpu_free() * 100);
         ram.reload();
         cpu.reload();
         wrefresh(_data);

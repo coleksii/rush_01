@@ -31,6 +31,7 @@ float CPU::CalculateCPULoad(unsigned long long idleTicks, unsigned long long tot
 // Returns 1.0f for "CPU fully pinned", 0.0f for "CPU idle", or somewhere in between
 // You'll need to call this at regular intervals, since it measures the load between
 // the previous call and the current one.
+
 void CPU::reload()
 {
     host_cpu_load_info_data_t cpuinfo;
@@ -39,15 +40,24 @@ void CPU::reload()
     {
         unsigned long long totalTicks = 0;
         for(int i=0; i<CPU_STATE_MAX; i++) totalTicks += cpuinfo.cpu_ticks[i];
-        _cpu = CalculateCPULoad(cpuinfo.cpu_ticks[CPU_STATE_IDLE], totalTicks);
+        _cpu_used = CalculateCPULoad(cpuinfo.cpu_ticks[CPU_STATE_IDLE], totalTicks);
+        _cpu_free = 1 - _cpu_used;
     }
-    else
-        _cpu =-1.0f;
+    else {
+        _cpu_used = -1.0f;
+        _cpu_free = 0;
+    }
+
 }
 
 float CPU::get_cpu() const
 {
-    return _cpu;
+    return _cpu_used;
+}
+
+float CPU::get_cpu_free() const
+{
+    return _cpu_free;
 }
 
 //int main()

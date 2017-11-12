@@ -17,12 +17,14 @@ public:
     CPU();
     virtual ~CPU();
     void reload();
-
     float get_cpu() const;
+    float get_cpu_free() const;
 
 private:
     float CalculateCPULoad(unsigned long long idleTicks, unsigned long long totalTicks);
-    float _cpu;
+    float _cpu_used;
+    float _cpu_free;
+
 };
 
 
