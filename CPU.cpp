@@ -32,7 +32,7 @@ float CPU::CalculateCPULoad(unsigned long long idleTicks, unsigned long long tot
 // You'll need to call this at regular intervals, since it measures the load between
 // the previous call and the current one.
 
-void CPU::reload()
+void CPU::cpu_load()
 {
     host_cpu_load_info_data_t cpuinfo;
     mach_msg_type_number_t count = HOST_CPU_LOAD_INFO_COUNT;
@@ -47,7 +47,25 @@ void CPU::reload()
         _cpu_used = -1.0f;
         _cpu_free = 0;
     }
+}
 
+void CPU::cpu_info()
+{
+    size_t		len = 1048;
+    char		str[1048];
+    int			cnt_core;
+
+    sysctlbyname("machdep.cpu.brand_string", str, &len, NULL, 0);
+    _cpu_name = str;
+    len = sizeof(int);
+    sysctlbyname("hw.ncpu", &(cnt_core), &len, NULL, 0);
+    _cores = cnt_core;
+}
+
+void CPU::reload()
+{
+    cpu_load();
+    cpu_info();
 }
 
 float CPU::get_cpu() const
@@ -58,6 +76,16 @@ float CPU::get_cpu() const
 float CPU::get_cpu_free() const
 {
     return _cpu_free;
+}
+
+char const *CPU::get_cpu_name()
+{
+    return _cpu_name.c_str();
+}
+
+int CPU::get_cores() const
+{
+    return _cores;
 }
 
 //int main()
