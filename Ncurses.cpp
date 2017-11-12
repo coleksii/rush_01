@@ -14,6 +14,7 @@ void Ncurses::init_visualisation() const
     start_color();
     keypad(_menu, TRUE);
     nodelay(_menu, TRUE);
+    nodelay(stdscr, TRUE);
     init_pair(1, COLOR_BLACK, 8);//for margins of menu
     init_pair(2, COLOR_BLACK, COLOR_YELLOW);//for menu text
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
@@ -40,16 +41,12 @@ void Ncurses::allplugins() const
     wattron(_data, COLOR_PAIR(3));
     mvwprintw(_data, 2, 4, "Username: %s", user.getUser());
     mvwprintw(_data, 3, 4, "Hostname: %s", user.getHost());
-    mvwprintw(_data, 7, 4, "Sysname: %s", os.getSysname());
-    mvwprintw(_data, 8, 4, "Nodename: %s", os.getNodename());
-    mvwprintw(_data, 9, 4, "Release: %s", os.getRelease());
-    mvwprintw(_data, 10, 4, "Version: %s", os.getVersion());
-    mvwprintw(_data, 11, 4, "Machine: %s", os.getMachine());
+    mvwprintw(_data, 7, 4, "%s", os.get_buff());
     while (1)
     {
         mvwprintw(_data, 5, 4, "Free memory: %lld kb     ", ram.getFreeMemory() / 1024);
         mvwprintw(_data, 6, 4, "Used memory: %lld kb     ", ram.getUsedMemore() / 1024);
-        mvwprintw(_data, 12, 4, "CPU Load: %.2f", cpu.get_cpu());
+        mvwprintw(_data, 20, 4, "CPU Load: %.2f", cpu.get_cpu());
         ram.reload();
         cpu.reload();
         wrefresh(_data);

@@ -4,6 +4,7 @@
 
 #include "OSInfo.hpp"
 
+
 OSInfo::OSInfo()
 {
     reload();
@@ -15,14 +16,13 @@ OSInfo::~OSInfo()
 
 void OSInfo::reload()
 {
-    utsname uts;
-
-    uname(&uts);
-    strcpy(_sysname, uts.sysname);
-    strcpy(_nodename, uts.nodename);
-    strcpy(_release, uts.release);
-    strncpy(_version, uts.version, 30);
-    strcpy(_machine, uts.machine);
+    FILE *os;
+    char buff[1024];
+    std::string line;
+    os = popen("system_profiler SPSoftwareDataType", "r");
+    while (fgets(buff, sizeof(buff), os) != NULL)
+        _buff = _buff + buff;
+    pclose(os);
 }
 
 char *OSInfo::getSysname()
@@ -48,4 +48,9 @@ char *OSInfo::getVersion()
 char *OSInfo::getMachine()
 {
     return _machine;
+}
+
+char const *OSInfo::get_buff()
+{
+    return _buff.c_str();
 }

@@ -5,12 +5,12 @@
 #include <zconf.h>
 #include "UserInfo.hpp"
 
-char *UserInfo::getHost() const {
-    return host;
+char const *UserInfo::getHost() {
+    return host.c_str();
 }
 
-char *UserInfo::getUser() {
-    return user;
+char const *UserInfo::getUser() {
+    return user.c_str();
 }
 
 UserInfo::UserInfo() {

@@ -11,8 +11,8 @@ int uname(struct utsname *);
 
 class UserInfo {
 private:
-    char* host;
-    char* user;
+    std::string host;
+    std::string user;
 
 
 public:
@@ -20,9 +20,9 @@ public:
     UserInfo();
     void reload();
 
-    char *getHost() const;
+    char const *getHost();
 
-    char *getUser();
+    char const *getUser();
 
     virtual ~UserInfo();
 

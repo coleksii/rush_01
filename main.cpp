@@ -9,6 +9,6 @@ int main()
     OSInfo os;
     Ncurses curses;
     curses.allplugins();
-//    std::cout << os.getSysname() << std::endl;
+    std::cout << os.getSysname() << std::endl;
     return 0;
 }
