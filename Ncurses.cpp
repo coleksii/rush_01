@@ -51,7 +51,9 @@ void Ncurses::pluginMemory(){
 	mvwprintw(_data, 2, 4, "Virt Free memory: %ld kb     ", ram.getVirt_freeMemory() / 1024);
 	mvwprintw(_data, 3, 4, "Virt Used memory: %ld kb     ", ram.getVirt_UsedMemory() / 1024);
     mvwprintw(_data, 4, 4, "Physical memory:  %llu kb     ", ram.getPhysical_memory() / 1024);
-//    mvwprintw(_data, 5, 4, "Physical memory:  %s     ", ram.getPhys_Unused_memory());
+//    mvwprintw(_data, 5, 4, "Physical used memory:    %s     ", ram.getVirt_UsedMemory());
+//    mvwprintw(_data, 6, 4, "Physical unused memory:  %s     ", ram.getPhys_Unused_memory());
+//    mvwprintw(_data, 7, 4, "Physical wired memory:  %s     ", ram.getPhys_Wired_memory());
 
 
 
