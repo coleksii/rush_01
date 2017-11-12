@@ -4,12 +4,12 @@
 
 #include "RamMemory.hpp"
 
-long RamMemory::getFreeMemory() const {
-    return freeMemory;
+long RamMemory::getVirt_freeMemory() const {
+    return virt_freeMemory;
 }
 
-long RamMemory::getUsedMemore() const {
-    return usedMemory;
+long RamMemory::getVirt_UsedMemory() const {
+    return virt_Memory;
 }
 
 
@@ -17,46 +17,75 @@ RamMemory::RamMemory() {
     reload();
 }
 
-RamMemory::~RamMemory() {
-
-
-
-}
-
-void RamMemory::PhysicalMemory()
+RamMemory::~RamMemory()
 {
-    size_t len = sizeof(physical_memory);
-    sysctlbyname("hw.memsize", &physical_memory, &len, NULL, 0);
 }
 
 void RamMemory::reload()
 {
+    loadvirtual_mem();
     PhysicalMemory();
 }
 
-unsigned long long int RamMemory::getPhysical_memory() const
+void RamMemory::PhysicalMemory()
 {
-    return physical_memory;
+//    std::string used_memory:;
+//    std::string unused_memory;
+    std::string::size_type pos;
+    size_t len = sizeof(_physical_memory);
+    sysctlbyname("hw.memsize", &_physical_memory, &len, NULL, 0);
+    FILE *ram;
+    char buff[1024];
+    ram = popen("top -l 1 | grep \"PhysMem:\"", "r");
+    fgets(buff, sizeof(buff), ram);
+    std::string tmp(buff);
+    pos = tmp.find("PhysMem: ");
+    used_memory = tmp.substr(pos + 9, 5);
+    pos = tmp.find('(');
+    wired_memory = tmp.substr(pos + 1, 5);
+    pos = tmp.find("),");
+    unused_memory = tmp.substr(pos + 3, 5);
 }
 
-//void RamMemory::reload() {
-//
-//    vm_size_t page_size;
-//    mach_port_t mach_port;
-//    mach_msg_type_number_t count;
-//    vm_statistics64_data_t vm_stats;
-//
-//    mach_port = mach_host_self();
-//    count = sizeof(vm_stats) / sizeof(natural_t);
-//    if (KERN_SUCCESS == host_page_size(mach_port, &page_size) &&
-//        KERN_SUCCESS == host_statistics64(mach_port, HOST_VM_INFO,
-//                                          (host_info64_t) &vm_stats, &count)) {
-//        long long free_memory = (int64_t) vm_stats.free_count * (int64_t) page_size;
-//
-//        long long used_memory = ((int64_t) vm_stats.active_count +
-//                                 (int64_t) vm_stats.inactive_count +
-//                                 (int64_t) vm_stats.wire_count) * (int64_t) page_size;
-//        freeMemory = free_memory;
-//        usedMemory = used_memory;
-//    }
-//}
+unsigned long long int RamMemory::getPhysical_memory()
+{
+    return _physical_memory;
+}
+
+void RamMemory::loadvirtual_mem()
+{
+    vm_size_t page_size;
+    mach_port_t mach_port;
+    mach_msg_type_number_t count;
+    vm_statistics64_data_t vm_stats;
+
+    mach_port = mach_host_self();
+    count = sizeof(vm_stats) / sizeof(natural_t);
+    if (KERN_SUCCESS == host_page_size(mach_port, &page_size) &&
+        KERN_SUCCESS == host_statistics64(mach_port, HOST_VM_INFO,
+                                          (host_info64_t) &vm_stats, &count))
+    {
+        long long free_memory = (int64_t) vm_stats.free_count * (int64_t) page_size;
+
+        long long used_memory = ((int64_t) vm_stats.active_count +
+                                 (int64_t) vm_stats.inactive_count +
+                                 (int64_t) vm_stats.wire_count) * (int64_t) page_size;
+        virt_freeMemory = free_memory;
+        virt_Memory = used_memory;
+    }
+}
+
+const std::string &RamMemory::getPhys_Used_memory() const
+{
+    return used_memory;
+}
+
+const std::string &RamMemory::getPhys_Unused_memory() const
+{
+    return unused_memory;
+}
+
+const std::string &RamMemory::getPhys_Wired_memory() const
+{
+    return wired_memory;
+}
