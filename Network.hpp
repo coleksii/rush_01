@@ -12,18 +12,23 @@
 #include <net/if.h>
 #include <net/route.h>
 #include <iostream>
+#include "IMonitorModule.hpp"
 
-class Network
+class Network : public IMonitorModule
 {
 public:
     Network();
-    virtual ~Network();
+    ~Network();
     void reload();
     char const  *getIn() const;
     char const  *getOut() const;
+
 private:
     std::string in;
     std::string out;
+    Network &operator=(Network const &rhs);
+    Network(Network const &src);
+
 };
 
 

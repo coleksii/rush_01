@@ -88,3 +88,20 @@ long RamMemory::getPhys_Wired_memory()
 {
     return wired_memory;
 }
+
+RamMemory& RamMemory::operator=(RamMemory &rhs)
+{
+    this->virt_freeMemory = rhs.getVirt_freeMemory();
+    this->virt_Memory = rhs.getVirt_UsedMemory();
+    this->_physical_memory = rhs.getPhysical_memory();
+    this->used_memory = rhs.getVirt_UsedMemory();
+    this->wired_memory = rhs.getPhys_Wired_memory();
+    this->unused_memory = rhs.getPhys_Unused_memory();
+
+    return *this;
+}
+
+RamMemory::RamMemory(RamMemory &src)
+{
+    *this = src;
+}

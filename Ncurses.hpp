@@ -45,6 +45,7 @@ private:
     void init_visualisation() const;
     void printmenu();
     void printmenudata() const;
+	void graphickModeMemory();
 };
 
 

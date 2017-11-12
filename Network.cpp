@@ -32,6 +32,19 @@ void Network::reload()
     pclose(network);
 }
 
+Network& Network::operator=(Network const &rhs)
+{
+    this->in = rhs.getIn();
+    this->out = rhs.getOut();
+
+    return *this;
+}
+
+Network::Network(Network const &src)
+{
+    *this = src;
+}
+
 char const *Network::getIn() const
 {
     return in.c_str();

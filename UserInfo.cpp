@@ -31,3 +31,15 @@ void UserInfo::reload() {
     host = &hostname[l];
 }
 
+UserInfo& UserInfo::operator=(UserInfo &rhs)
+{
+    this->user = rhs.getUser();
+    this->host = rhs.getHost();
+
+    return *this;
+}
+
+UserInfo::UserInfo(UserInfo &src)
+{
+    *this = src;
+}
