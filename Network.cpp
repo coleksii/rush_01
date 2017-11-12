@@ -12,7 +12,6 @@ Network::Network()
 
 Network::~Network()
 {
-
 }
 
 void Network::reload()

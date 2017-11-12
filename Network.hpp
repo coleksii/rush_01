@@ -12,7 +12,6 @@
 #include <net/if.h>
 #include <net/route.h>
 
-
 class Network
 {
 public:
