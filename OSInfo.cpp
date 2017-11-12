@@ -25,31 +25,6 @@ void OSInfo::reload()
     pclose(os);
 }
 
-char *OSInfo::getSysname()
-{
-    return _sysname;
-}
-
-char *OSInfo::getNodename()
-{
-    return _nodename;
-}
-
-char *OSInfo::getRelease()
-{
-    return _release;
-}
-
-char *OSInfo::getVersion()
-{
-    return _version;
-}
-
-char *OSInfo::getMachine()
-{
-    return _machine;
-}
-
 char const *OSInfo::get_buff()
 {
     return _buff.c_str();

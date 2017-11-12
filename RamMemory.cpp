@@ -75,17 +75,17 @@ void RamMemory::loadvirtual_mem()
     }
 }
 
-const std::string &RamMemory::getPhys_Used_memory() const
+char const *RamMemory::getPhys_Used_memory()
 {
-    return used_memory;
+    return used_memory.c_str();
 }
 
-const std::string &RamMemory::getPhys_Unused_memory() const
+char const *RamMemory::getPhys_Unused_memory()
 {
-    return unused_memory;
+    return unused_memory.c_str();
 }
 
-const std::string &RamMemory::getPhys_Wired_memory() const
+char const *RamMemory::getPhys_Wired_memory()
 {
-    return wired_memory;
+    return wired_memory.c_str();
 }

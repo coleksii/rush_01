@@ -25,9 +25,9 @@ public:
     ~RamMemory();
     RamMemory();
     void reload();
-    const std::string &getPhys_Used_memory() const;
-    const std::string &getPhys_Unused_memory() const;
-    const std::string &getPhys_Wired_memory() const;
+    char const *getPhys_Used_memory();
+    char const *getPhys_Unused_memory();
+    char const *getPhys_Wired_memory();
     long getVirt_freeMemory() const;
     long getVirt_UsedMemory() const;
     void PhysicalMemory();
