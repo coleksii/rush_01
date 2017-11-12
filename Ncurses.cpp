@@ -36,7 +36,7 @@ void Ncurses::pluginUserInfo(){
 	wattron(_data, COLOR_PAIR(3));
 	mvwprintw(_data, 2, 4, "Username: %s", user.getUser());
 	mvwprintw(_data, 3, 4, "Hostname: %s", user.getHost());
-    mvwprintw(_data, 4, 4, "Data: %d : %d : %d", time.getYear() + 1900, time.getMonth() + 1, time.getDay());
+    mvwprintw(_data, 4, 4, "Date: %d/%d/%d", time.getYear() + 1900, time.getMonth() + 1, time.getDay());
     mvwprintw(_data, 5, 4, "Hours:  %d", time.getHour());
     mvwprintw(_data, 6, 4, "Min:    %d", time.getMin());
     mvwprintw(_data, 7, 4, "Sec:    %d", time.getSec());
@@ -221,4 +221,26 @@ Ncurses::Ncurses()
 	_data = newwin(70, 100, 0, 28);
 	init_visualisation();
 	printmenu();
+}
+
+Ncurses::Ncurses(Ncurses &nc) {
+    this->user = nc.user;
+    this->cpu = nc.cpu;
+    this->os = nc.os;
+    this->ram = nc.ram;
+    this->time = nc.time;
+    this->_menu = nc._menu;
+    this->numb = nc.numb;
+
+}
+
+Ncurses const &Ncurses::operator=(Ncurses &nc) {
+    this->user = nc.user;
+    this->cpu = nc.cpu;
+    this->os = nc.os;
+    this->ram = nc.ram;
+    this->time = nc.time;
+    this->_menu = nc._menu;
+    this->numb = nc.numb;
+    return *this;
 }

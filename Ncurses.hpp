@@ -19,6 +19,8 @@ class Ncurses : public IMonitorDisplay
 public:
     Ncurses();
     ~Ncurses();
+    Ncurses(Ncurses &nc);
+    Ncurses const&operator=(Ncurses &cn);
     void allplugins();
 	int getNumb() const;
 	void setNumb(int numb);
