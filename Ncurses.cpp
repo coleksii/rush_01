@@ -22,6 +22,8 @@ void Ncurses::init_visualisation() const
 	init_pair(2, COLOR_BLACK, COLOR_YELLOW);//for menu text
 	init_pair(3, COLOR_WHITE, COLOR_BLACK);
     init_pair(4, COLOR_WHITE, COLOR_BLUE);
+    init_pair(5, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(6, COLOR_RED, COLOR_BLACK);
 }
 
 Ncurses::~Ncurses()
@@ -47,15 +49,21 @@ void Ncurses::pluginUserInfo(){
 	wattrset(_data, A_NORMAL);
 }
 
+void Ncurses::graphickModeMemory(){
+    wattron(_data, COLOR_PAIR(5));
+    mvwprintw(_data, 2, 40, "[");
+    mvwprintw(_data, 2, 90, "]");
+    wattrset(_data, A_NORMAL);
+}
+
 void Ncurses::pluginMemory(){
-	mvwprintw(_data, 2, 4, "Virt Free memory: %ld kb     ", ram.getVirt_freeMemory() / 1024);
-	mvwprintw(_data, 3, 4, "Virt Used memory: %ld kb     ", ram.getVirt_UsedMemory() / 1024);
-    mvwprintw(_data, 4, 4, "Physical memory:  %llu kb     ", ram.getPhysical_memory() / 1024);
-    mvwprintw(_data, 5, 4, "Physical used memory:    %ld     ", ram.getPhys_Used_memory());
-    mvwprintw(_data, 6, 4, "Physical unused memory:  %ld     ", ram.getPhys_Unused_memory());
-    mvwprintw(_data, 7, 4, "Physical wired memory:  %ld     ", ram.getPhys_Wired_memory());
-
-
+	mvwprintw(_data, 2, 4, "Virt Free memory: %ld\tkb     ", ram.getVirt_freeMemory() / 1024);
+	mvwprintw(_data, 3, 4, "Virt Used memory: %ld\tkb     ", ram.getVirt_UsedMemory() / 1024);
+    mvwprintw(_data, 4, 4, "Physical memory:  %llu\tkb     ", ram.getPhysical_memory() / 1024);
+    mvwprintw(_data, 5, 4, "Physical used memory:    %4ld kb     ", ram.getPhys_Used_memory());
+    mvwprintw(_data, 6, 4, "Physical unused memory:  %4ld kb     ", ram.getPhys_Unused_memory());
+    mvwprintw(_data, 7, 4, "Physical wired memory:   %4ld kb     ", ram.getPhys_Wired_memory());
+    graphickModeMemory();
 
 }
 
