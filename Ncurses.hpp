@@ -13,6 +13,7 @@
 #include "IMonitorDisplay.hpp"
 #include "CPU.hpp"
 #include "Time.hpp"
+#include "Network.hpp"
 
 class Ncurses : public IMonitorDisplay
 {
@@ -34,13 +35,15 @@ public:
     void initStrMenu();
     void graphickModeMemory();
     void printGr(int y, double l);
+    void pluginNetwork();
 private:
 	UserInfo user;
 	OSInfo os;
 	CPU cpu;
 	RamMemory ram;
     Time time;
-    char *men[4];
+    Network net;
+    char *men[5];
 
 	WINDOW *_menu;
     WINDOW *_data;
