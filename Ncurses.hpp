@@ -26,18 +26,22 @@ public:
 	void pluginCPU();
 	void initplugin();
 	void pluginOS();
+    void reload();
+    void printLeft();
+    void initStrMenu();
 private:
 	UserInfo user;
 	OSInfo os;
 	CPU cpu;
 	RamMemory ram;
+    char *men[4];
 
 	WINDOW *_menu;
     WINDOW *_data;
 	int		numb;
 	void ((Ncurses::*f[5]))();
     void init_visualisation() const;
-    void printmenu() const;
+    void printmenu();
     void printmenudata() const;
 };
 
