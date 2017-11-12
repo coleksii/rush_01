@@ -12,6 +12,7 @@
 #include "OSInfo.hpp"
 #include "IMonitorDisplay.hpp"
 #include "CPU.hpp"
+#include "Time.hpp"
 
 class Ncurses : public IMonitorDisplay
 {
@@ -34,6 +35,7 @@ private:
 	OSInfo os;
 	CPU cpu;
 	RamMemory ram;
+    Time time;
     char *men[4];
 
 	WINDOW *_menu;
