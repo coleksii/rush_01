@@ -110,15 +110,17 @@ void Ncurses::pluginOS(){
 
 void Ncurses::initplugin(){
 	this->f[0] = &Ncurses::pluginUserInfo;
-	this->f[1] = &Ncurses::pluginMemory;
-	this->f[2] = &Ncurses::pluginOS;
-	this->f[3] = &Ncurses::pluginCPU;
+    this->f[1] = &Ncurses::pluginMemory;
+    this->f[2] = &Ncurses::pluginOS;
+    this->f[3] = &Ncurses::pluginCPU;
     this->f[4] = &Ncurses::pluginNetwork;
 }
 
 void Ncurses::reload(){
     cpu.reload();
     ram.reload();
+    net.reload();
+//    time.reload();TODO
 }
 
 void Ncurses::allplugins()
@@ -194,7 +196,7 @@ void Ncurses::printmenu()
 {
 	wattron(_menu, COLOR_PAIR(1) | A_BOLD);
 	wattron(_data, COLOR_PAIR(1) | A_BOLD);
-	for (int y = 0; y < 70; y++)
+	for (int y = 0; y < 23; y++)
 	{
 		mvwaddch(_menu, y, 0, ' ');
 		mvwaddch(_menu, y, 27, ' ');
@@ -203,12 +205,12 @@ void Ncurses::printmenu()
 	for (int x = 0; x < 28; x++)
 	{
 		mvwaddch(_menu, 0, x, ' ' | A_BOLD);
-		mvwaddch(_menu, 69, x, ' '| A_BOLD);
+		mvwaddch(_menu, 22, x, ' '| A_BOLD);
 	}
 	for (int x = 0; x < 100; x++)
 	{
 		mvwaddch(_data, 0, x, ' ' | A_BOLD);
-		mvwaddch(_data, 69, x, ' '| A_BOLD);
+		mvwaddch(_data, 22, x, ' '| A_BOLD);
 	}
 	wattrset(_menu, A_NORMAL);
     wattrset(_data, A_NORMAL);
@@ -223,8 +225,8 @@ Ncurses::Ncurses()
     numb = 0;
 	initscr();
     initStrMenu();
-	_menu = newwin(70, 28, 0, 0);
-	_data = newwin(70, 100, 0, 28);
+	_menu = newwin(23, 28, 0, 0);
+	_data = newwin(23, 100, 0, 28);
 	init_visualisation();
 	printmenu();
 }
