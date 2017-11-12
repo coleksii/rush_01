@@ -73,14 +73,18 @@ void Ncurses::graphickModeMemory(){
 }
 
 void Ncurses::pluginMemory(){
-	mvwprintw(_data, 2, 4, "Virt Free memory: %ld\tkb     ", ram.getVirt_freeMemory() / 1024);
-	mvwprintw(_data, 3, 4, "Virt Used memory: %ld\tkb     ", ram.getVirt_UsedMemory() / 1024);
+    mvwprintw(_data, 2, 4, "Virt Free memory: %ld\tkb     ", ram.getVirt_freeMemory() / 1024);
+    mvwprintw(_data, 3, 4, "Virt Used memory: %ld\tkb     ", ram.getVirt_UsedMemory() / 1024);
     mvwprintw(_data, 4, 4, "Physical memory:  %llu\tkb     ", ram.getPhysical_memory() / 1024);
     mvwprintw(_data, 5, 4, "Physical used memory:    %4ld      ", ram.getPhys_Used_memory());
     mvwprintw(_data, 6, 4, "Physical unused memory:  %4ld      ", ram.getPhys_Unused_memory());
     mvwprintw(_data, 7, 4, "Physical wired memory:   %4ld      ", ram.getPhys_Wired_memory());
     graphickModeMemory();
+}
 
+void Ncurses::pluginNetwork(){
+    mvwprintw(_data, 2, 4, "Network out %s     ", net.getOut());
+    mvwprintw(_data, 3, 4, "Newtork in %s      ", net.getIn());
 }
 
 void Ncurses::pluginCPU(){
@@ -109,6 +113,7 @@ void Ncurses::initplugin(){
 	this->f[1] = &Ncurses::pluginMemory;
 	this->f[2] = &Ncurses::pluginOS;
 	this->f[3] = &Ncurses::pluginCPU;
+    this->f[4] = &Ncurses::pluginNetwork;
 }
 
 void Ncurses::reload(){
@@ -148,8 +153,8 @@ int Ncurses::getNumb() const {
 
 void Ncurses::setNumb(int numb) {
 	if (numb < 0)
-		Ncurses::numb = 3;
-	else if (numb > 3)
+		Ncurses::numb = 4;
+	else if (numb > 4)
 		Ncurses::numb = 0;
 	else
 		Ncurses::numb = numb;
@@ -161,6 +166,7 @@ void Ncurses::initStrMenu() {
     men[1] = const_cast<char *>("RAM");
     men[2] = const_cast<char *>("OS Info");
     men[3] = const_cast<char *>("CPU");
+    men[4] = const_cast<char *>("Network");
 }
 
 
@@ -169,7 +175,7 @@ void Ncurses::printLeft() {
     int y = 1;
     mvwprintw(_menu, y, x, "__________________________");
     y += 4;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         mvwprintw(_menu, y - 2, x, "%s", men[i]);
         mvwprintw(_menu, y, x, "__________________________");
         y += 4;
