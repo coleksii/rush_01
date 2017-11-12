@@ -11,6 +11,7 @@
 #include <sys/types.h>
 #include <net/if.h>
 #include <net/route.h>
+#include <iostream>
 
 class Network
 {
