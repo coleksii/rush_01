@@ -17,17 +17,17 @@ private:
     long virt_freeMemory;
     long virt_Memory;
     unsigned long long _physical_memory;
-    std::string used_memory;
-    std::string unused_memory;
-    std::string wired_memory;
+    long used_memory;
+    long unused_memory;
+    long wired_memory;
 
 public:
     ~RamMemory();
     RamMemory();
     void reload();
-    char const *getPhys_Used_memory();
-    char const *getPhys_Unused_memory();
-    char const *getPhys_Wired_memory();
+    long getPhys_Used_memory();
+    long getPhys_Unused_memory();
+    long getPhys_Wired_memory();
     long getVirt_freeMemory() const;
     long getVirt_UsedMemory() const;
     void PhysicalMemory();

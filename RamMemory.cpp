@@ -40,11 +40,11 @@ void RamMemory::PhysicalMemory()
     fgets(buff, sizeof(buff), ram);
     std::string tmp(buff);
     pos = tmp.find("PhysMem: ");
-    used_memory = tmp.substr(pos + 9, 5);
+    used_memory = atol(tmp.substr(pos + 9, 5).c_str());
     pos = tmp.find('(');
-    wired_memory = tmp.substr(pos + 1, 5);
+    wired_memory = atol(tmp.substr(pos + 1, 5).c_str());
     pos = tmp.find("),");
-    unused_memory = tmp.substr(pos + 3, 5);
+    unused_memory = atol(tmp.substr(pos + 3, 5).c_str());
 }
 
 unsigned long long int RamMemory::getPhysical_memory()
@@ -75,17 +75,17 @@ void RamMemory::loadvirtual_mem()
     }
 }
 
-char const *RamMemory::getPhys_Used_memory()
+long RamMemory::getPhys_Used_memory()
 {
-    return used_memory.c_str();
+    return used_memory;
 }
 
-char const *RamMemory::getPhys_Unused_memory()
+long RamMemory::getPhys_Unused_memory()
 {
-    return unused_memory.c_str();
+    return unused_memory;
 }
 
-char const *RamMemory::getPhys_Wired_memory()
+long RamMemory::getPhys_Wired_memory()
 {
-    return wired_memory.c_str();
+    return wired_memory;
 }
