@@ -38,31 +38,27 @@ void Ncurses::printmenudata() const
 
 void Ncurses::pluginUserInfo(){
 	wattron(_data, COLOR_PAIR(3));
-	mvwprintw(_menu, 2, 1, "%s", "plugin User Info");
 	mvwprintw(_data, 2, 4, "Username: %s", user.getUser());
 	mvwprintw(_data, 3, 4, "Hostname: %s", user.getHost());
 	wattrset(_data, A_NORMAL);
 }
 
 void Ncurses::pluginMemory(){
-	mvwprintw(_menu, 2, 1, "%s", "plugin Memory");
-	mvwprintw(_data, 5, 4, "Free memory: %lld kb     ", ram.getFreeMemory() / 1024);
-	mvwprintw(_data, 6, 4, "Used memory: %lld kb     ", ram.getUsedMemore() / 1024);
+	mvwprintw(_data, 2, 4, "Free memory: %lld kb     ", ram.getFreeMemory() / 1024);
+	mvwprintw(_data, 3, 4, "Used memory: %lld kb     ", ram.getUsedMemore() / 1024);
 
 
 }
 
 void Ncurses::pluginCPU(){
-	mvwprintw(_menu, 2, 1, "%s", "plugin CPU");
-	mvwprintw(_data, 20, 4, "CPU used: %.0f%%   ", cpu.get_cpu() * 100);
-	mvwprintw(_data, 21, 4, "CPU free: %.0f%%   ", cpu.get_cpu_free() * 100);
+	mvwprintw(_data, 2, 4, "CPU used: %.0f%%   ", cpu.get_cpu() * 100);
+	mvwprintw(_data, 3, 4, "CPU free: %.0f%%   ", cpu.get_cpu_free() * 100);
 
 
 }
 
 void Ncurses::pluginOS(){
-	mvwprintw(_menu, 2, 1, "%s", "plugin OS");
-	mvwprintw(_data, 7, 4, "%s", os.get_buff());
+	mvwprintw(_data, 2, 4, "%s", os.get_buff());
 }
 
 void Ncurses::initplugin(){
@@ -85,7 +81,6 @@ void Ncurses::allplugins()
 	{
 		werase(_data);
 		werase(_menu);
-		mvwprintw(_data, 1, 1, "Free memory: %d     ", numb);
         (this->*f[numb])();
         ch = getch();
 		if (ch == 258) {
@@ -135,6 +130,14 @@ void Ncurses::printLeft() {
         mvwprintw(_menu, y, x, "__________________________");
         y += 4;
     }
+    wattron(_menu, COLOR_PAIR(4));
+    y = numb * 4 + 1;
+    mvwprintw(_menu, y+1, x, "                          ");
+    mvwprintw(_menu, y+2, x, "                          ");
+    mvwprintw(_menu, y+3, x, "                          ");
+    mvwprintw(_menu, y+4, x, "__________________________");
+    mvwprintw(_menu, y + 2, x, "%s", men[numb]);
+    wattrset(_menu, A_NORMAL);
 }
 
 void Ncurses::printmenu()
